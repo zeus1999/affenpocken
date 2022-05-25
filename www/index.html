@@ -1,29 +1,13 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Affepocken Tracker</title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css" type="text/css">
-        <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <title>AffenpockenFrontend</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" type="text/css" href="assets/ol.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="assets/ol.css"></noscript>
+<style>html,body{margin:0;padding:0}</style><link rel="stylesheet" href="styles.2f8077d21b7d6ef9.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.2f8077d21b7d6ef9.css"></noscript></head>
+<body>
+  <app-root></app-root>
+<script src="runtime.ddf735975a74238e.js" type="module"></script><script src="polyfills.39a9b7861104df70.js" type="module"></script><script src="main.f662984ee079a434.js" type="module"></script>
 
-    </head>
-    <body>
-
-        <script src="script.js"></script>
-        <div id="map" class="map"></div>
-    <script type="text/javascript">
-      var map = new ol.Map({
-        target: 'map',
-        layers: [
-          new ol.layer.Tile({
-            source: new ol.source.OSM()
-          })
-        ],
-        view: new ol.View({
-          center: ol.proj.fromLonLat([37.41, 8.82]),
-          zoom: 4
-        })
-      });
-    </script>
-    </body>
-</html>
+</body></html>
