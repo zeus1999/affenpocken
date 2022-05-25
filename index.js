@@ -3,34 +3,43 @@ var app = express();
 var path = require("path");
 var router = express.Router();
 var cors = require("cors");
+var request = require("async-request");
 
 var getCoordFromCountry = require("./coord");
 
 app.use(cors());
 
 
+compiled = [];
 let data = [];
-
-/*
-
-var data = [
-    { country: "Germany", cases: 0, death: 0, lat: getCoordFromCountry("DE").latitude, lon: getCoordFromCountry("DE").longitude },
-    { country: "England", cases: 0, death: 0, lat: getCoordFromCountry("GB").latitude, lon: getCoordFromCountry("GB").longitude },
-    { country: "Spain", cases: 0, death: 0, lat: getCoordFromCountry("ES").latitude, lon: getCoordFromCountry("ES").longitude },
-]
-*/
-var raw = require("./data.json");
-
 var map = {};
 
-for(let i = 0; i < raw.length; i++){
+(async ()=>{
+    await getData();
+})();
+setInterval(getData, 30000);
 
-    if(raw[i].Status == "confirmed"){
 
-        if(!map[raw[i].Country]) map[raw[i].Country] = { cases: 0 }
+async function getData(){
 
-        map[raw[i].Country].cases++;
+    data = await request("https://raw.githubusercontent.com/globaldothealth/monkeypox/main/latest.json");
+    data = JSON.parse(data.body);
+    map = {};
+
+    compiled = [];
+    
+    for(let i = 0; i < data.length; i++){
+
+        if(data[i].Status == "confirmed"){
+
+            if(!map[data[i].Country]) map[data[i].Country] = { cases: 0 }
+
+            map[data[i].Country].cases++;
+        }
+
     }
+
+    compiled = [];
 
     for(let key in map){
 
@@ -41,7 +50,7 @@ for(let i = 0; i < raw.length; i++){
             continue;
         }
 
-        data.push({
+        compiled.push({
             country: key,
             cases: map[key].cases,
             lat: obj.latitude,
@@ -49,7 +58,10 @@ for(let i = 0; i < raw.length; i++){
         })
     }
 
+
 }
+
+
 
 
 app.use("/", express.static("./www"))
@@ -58,7 +70,7 @@ app.use("/", express.static("./www"))
 router.get("/rest/data", async function(req, res){
 
 
-    res.send(data)
+    res.send(compiled)
 });
 
 app.use(router);

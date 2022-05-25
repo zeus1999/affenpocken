@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/zeus1999/affenpocken#readme",
   "dependencies": {
+    "async-request": "^1.2.0",
     "cors": "^2.8.5",
     "express": "^4.18.1"
   }
