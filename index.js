@@ -1,5 +1,6 @@
 var express = require("express");
 var app = express();
+var path = require("path");
 var router = express.Router();
 var cors = require("cors");
 
@@ -56,7 +57,9 @@ app.use("/", express.static("./www"))
 
 router.get("/rest/data", async function(req, res){
 
-
+router.get("*", function(req, res){
+    res.sendFile(path.join(__dirname, "./www/index.html"));
+});
     
 
     res.send(data)
