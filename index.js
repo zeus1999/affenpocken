@@ -57,13 +57,16 @@ app.use("/", express.static("./www"))
 
 router.get("/rest/data", async function(req, res){
 
-router.get("*", function(req, res){
-    res.sendFile(path.join(__dirname, "./www/index.html"));
-});
-    
 
     res.send(data)
 });
 
 app.use(router);
+
+
+
+app.get("*", function(req, res){
+    res.sendFile(path.join(__dirname, "./www/index.html"));
+});
+    
 app.listen(80);
